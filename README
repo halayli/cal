@@ -1,0 +1,38 @@
+Cassandra Abstraction Library.
+
+CAL abstracts Cassandra's confusing terminologies and allows you to use
+Python like syntax to access/manipulate Cassandra records.
+
+The library is not complete and doesn't support batch inserts/deletions yet.
+
+Usage:
+Assuming Users is a columnFamily of type Super in a Cassandara node.
+
+from cal import dbConnect
+keyspace = dbConnect()['MyDatabase']
+users = keyspace['Users']
+
+To insert a column/superColumn:
+  users['joe']['personalInfo'].insert('emailAddress', 'joe@abc.com')
+
+To fetch column/columns:
+  users['joe'].get()
+or more granular
+  users['joe']['personalInfo'].get()
+which is almost equivalent to:
+  users['joe'].get(['personalInfo'])
+
+To delete a column:
+  del users['joe']
+or
+  del users['joe']['personalInfo']
+or
+  del users['joe']['personalInfo']['emailAddress']
+
+To count the number of columns:
+  users['joe'].count()
+  or
+  users['joe']['personalInfo'].count()
+
+If Users is a columnFamily of type Standard, then you only nest one level deep:
+users['joe'].insert('emailAddress', 'joe@abc.com')
