@@ -58,7 +58,7 @@ def dbConnect(host='localhost', port=9160):
     record. Read the module docstring for examples.
     """
 
-    socket = TSocket.TSocket("localhost", 9160)
+    socket = TSocket.TSocket(host, port)
     transport = TTransport.TBufferedTransport(socket)
     protocol = TBinaryProtocol.TBinaryProtocolAccelerated(transport)
     client = Cassandra.Client(protocol)
